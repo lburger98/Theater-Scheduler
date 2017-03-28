@@ -42,6 +42,32 @@ void printTime(Time t) {
 }
 
 int main(int argc, char **argv) {
+  Time interval = {0, 35};
+  Time opentime;
+  Time finalclosetime;
+
+  if(argc == 1) {
+    printf("Usage: -monday -tuesday -wednesday etc.\n");
+    return 0;
+  } else if(argc == 2) {
+    if(!strcmp(argv[1], "-monday") || !strcmp(argv[1], "-tuesday") || !strcmp(argv[1], "-wednesday") || !strcmp(argv[1], "-thursday")) {
+      opentime.hour = 9;
+      opentime.mins = 0;
+      finalclosetime.hour = 23;
+      finalclosetime.mins = 0;
+      printf("\n%s\n\n", argv[1]);
+    }else if(!strcmp(argv[1], "-friday") || !strcmp(argv[1], "-saturday") || !strcmp(argv[1], "-sunday")) {
+      opentime.hour = 11;
+      opentime.mins = 30;
+      finalclosetime.hour = 23;
+      finalclosetime.mins = 30;
+      printf("\n%s\n\n", argv[1]);
+    } else {
+      printf("Usage: -monday -tuesday -wednesday etc.\n");
+      return 0;
+    }
+  }
+
   char *input;
   int size = 1024;
   input = malloc(size*sizeof(char));
@@ -81,9 +107,6 @@ int main(int argc, char **argv) {
 
 const char d[2] = ":\n";
 
-Time opentime = {9, 0};
-Time interval = {0, 35};
-
 for(int w = 0; w < (k+1); w++) {
   for(j=0; j<4; j++) {
   if(j==3){
@@ -95,7 +118,7 @@ for(int w = 0; w < (k+1); w++) {
   if(token2 != NULL) {
     runtime.mins = atoi(token2);
     Time tmp;
-    Time closetime = {23, 0};
+    Time closetime = finalclosetime;
     while(compTime(subTime(closetime, runtime), opentime)) {
       tmp = subTime(closetime, runtime);
       if((tmp.mins % 5) != 0) {

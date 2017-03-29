@@ -13,7 +13,7 @@ Create a text file and enter your movie information in this format:
 
 `Movie Title, Release Year, MPAA Rating, Run Time`
 
-make sure there are no other commas in the title.
+making sure there are no other commas in the title.
 
 To create the schedule run the command 
 
